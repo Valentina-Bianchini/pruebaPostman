@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "4359ef56-069e-4c8f-9b94-4f0bccf2c60a",
+		"name": "Biblioteca Practica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24415283"
+	},
+	"item": [
+		{
+			"name": "Obtener libros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://postman-library-api.glitch.me/books/",
+					"protocol": "https",
+					"host": [
+						"postman-library-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"books",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "EufyESkpJemFBrA",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar libro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Juanito y los Clonosaurios\",\r\n    \"author\": \"Prof Skinner\",\r\n    \"genre\": \"computers\",\r\n    \"yearPublished\": 1513\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://postman-library-api.glitch.me/books",
+					"protocol": "https",
+					"host": [
+						"postman-library-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Se llevaron el principe",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"checkedOut\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://postman-library-api.glitch.me/books/:id",
+					"protocol": "https",
+					"host": [
+						"postman-library-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "EufyESkpJemFBrA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cambiar nombre por id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Observaciones sobre el sentimiento de lo bello y lo sublime\",\r\n    \"author\": \"Immanuel Kant\",\r\n    \"yearPublished\": 1764\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://postman-library-api.glitch.me/books/:id",
+					"protocol": "https",
+					"host": [
+						"postman-library-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "iG4u3ZAIY0DfKxc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar libro por id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://postman-library-api.glitch.me/books/:id",
+					"protocol": "https",
+					"host": [
+						"postman-library-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "or2XGGmHdr2ajeh"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://postman-library-api.glitch.me",
+			"type": "string"
+		}
+	]
+}

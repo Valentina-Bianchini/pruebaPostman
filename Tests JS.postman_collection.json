@@ -1,0 +1,435 @@
+{
+	"info": {
+		"_postman_id": "37f3fc2f-b4c9-41a0-9111-f81fd974bbf1",
+		"name": "Tests JS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24415283"
+	},
+	"item": [
+		{
+			"name": "Agregar libros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let message = pm.response.json()\r",
+							"console.log(message)\r",
+							"\r",
+							"pm.test(\"Checkear response de POST\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"OK\");//assertion\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"libroTitulo\",\"Ana Karenina\")\r",
+							"pm.collectionVariables.set(\"libroAutor\",\"Leo Tolstoy\")\r",
+							"pm.collectionVariables.set(\"libroGenero\",\"romance\")\r",
+							"pm.collectionVariables.set(\"libroAnio\", 1714)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"{{libroTitulo}}\",\r\n    \"author\": \"{{libroAutor}}\",\r\n    \"genre\": \"{{libroGenero}}\",\r\n    \"yearPublished\": {{libroAnio}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/books/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener libros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"console.log(jsonData);\r",
+							"\r",
+							"pm.test(\"Variable de la coleccion guardada\", function () { \r",
+							"     pm.expect(pm.response.text()).to.include(pm.collectionVariables.get(\"libroTitulo\"))\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set(\"id\", pm.response.json()[0].id);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/books/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener libros",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 17 Nov 2022 12:39:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "10745"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"29f9-4oqivuA1dJ8YyXvj1ii8gQjABf8\""
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"title\": \"One Hundred Years of Solitude\",\n        \"author\": \"Gabriel García Márquez\",\n        \"id\": \"I1RrWhXFs4GIawh\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1967,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 11:00:25\"\n    },\n    {\n        \"title\": \"socorro\",\n        \"author\": \"{{autor}}\",\n        \"id\": \"Pk-3fkoezc8NWzH\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1976,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 09:59:15\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"mQILjnP8phApr_E\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 06:17:25\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"1PYhK6bPfkiO1lY\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 06:16:56\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"z7-mRhGufhW6KTX\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 06:16:36\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"EUfwHqx5oHXAV8j\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 06:16:27\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"Lj2VOK35hBj-RRF\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 04:29:06\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"rgc8hdI4JeOcY9l\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 04:26:42\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"fAuQ6u_JpwJE8gZ\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 04:26:42\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"vcDY7gwJkY35Z8_\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 04:26:42\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"fe2QJtszP_1oNJq\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 04:26:42\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"885TslBseIw5Xml\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 04:26:41\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"eC08lL-HqSkSNEp\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 04:26:41\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"FpQe1x0ZyPfc0Oi\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 04:26:41\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"tEjWidv278YF4f0\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 04:26:41\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"hoVVGChvX6C7mUA\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 04:26:40\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"sKfnocYC0O_TjWe\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 04:26:40\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"l-8RBCG3id68c3D\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 04:26:28\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"uX2HKI2TNrO4_Jy\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 04:26:26\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"Z596yvNX3f4z88s\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 04:26:23\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"kbdUk354JfF_hIC\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 04:26:15\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"J4PZwdPLPP9Vdqh\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 04:22:51\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"g7JcCENAwHJ5HTA\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2022-11-17 04:11:58\"\n    },\n    {\n        \"title\": \"Como polvo en el viento\",\n        \"author\": \"Padura\",\n        \"id\": \"nmAPuG3_QqlqX6k\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2020,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 03:01:38\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"2UsWm0hEjcUvkrQ\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:30:23\"\n    },\n    {\n        \"title\": \"One Hundred Years of Solitude\",\n        \"author\": \"Gabriel García Márquez\",\n        \"id\": \"aNgYrLblmtQmdT3\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1967,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:30:22\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"hC9QJyj_mQE3fil\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:19:02\"\n    },\n    {\n        \"title\": \"DDIA\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"L7KxEoA9mIvQ19B\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:18:08\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"IjjW-EMP6ovuDrP\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:18:08\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"yY8JAg5h9SXLZCw\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:17:54\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"sAyFgO13zLKsiyR\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:17:23\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"uj_KKgEYtd7vJ10\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:17:13\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"gVL8xqE4AeIQLY-\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:16:50\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"dQBt7UbDA73KE4I\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:16:39\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"lHJVbH2MCvmnU6l\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:16:23\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"uYJ1auqht7jg-Ac\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:12:16\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"bgExQeynKyYN41H\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:12:11\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"yk1HKscR_PQMwG6\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:07:56\"\n    },\n    {\n        \"title\": \"Dune\",\n        \"author\": \"Roger Zelazny\",\n        \"id\": \"O1VEML5PIo-1D1M\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1965,\n        \"checkedOut\": false,\n        \"createdAt\": \"2022-11-17 02:07:41\"\n    },\n    {\n        \"title\": \"Ficciones\",\n        \"author\": \"Jorge Luis Borges\",\n        \"id\": \"ZUST9JFx-Sd9X0k\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1944,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Dust Tracks on a Road\",\n        \"author\": \"Zora Neale Hurston\",\n        \"id\": \"bJmPVX5oFzAQJwI\",\n        \"genre\": \"biography\",\n        \"yearPublished\": 1942,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Crime and Punishment\",\n        \"author\": \"Fyodor Dostoyevsky\",\n        \"id\": \"T1NwXSmVxnlxoeG\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1866,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Domain-Driven Design: Tackling Complexity in the Heart of Software\",\n        \"author\": \"Eric Evans\",\n        \"id\": \"hHNwXjmjxnlxooP\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2003,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"The Tale of Genji\",\n        \"author\": \"Murasaki Shikibu\",\n        \"id\": \"rclHV3DLWbJmquK\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1021,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Patterns of Enterprise Application Architecture\",\n        \"author\": \"Martin Fowler\",\n        \"id\": \"uTYYlzvCQsaaSwj\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2002,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Competing Against Luck: The Story of Innovation and Customer Choice\",\n        \"author\": \"Clayton Christensen, Taddy Hall, Karen Dillon, David Duncan\",\n        \"id\": \"rebHV3JhWbJmcca\",\n        \"genre\": \"business\",\n        \"yearPublished\": 2016,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Beyond Violence\",\n        \"author\": \"Jiddu Krishnamurti\",\n        \"id\": \"pclHVVVqLWbJmqur\",\n        \"genre\": \"philosophy\",\n        \"yearPublished\": 1973,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"HbQrRkNjJkalsS\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Colorless Tsukuru Tazaki and His Years of Pilgrimage\",\n        \"author\": \"Haruki Murakami\",\n        \"id\": \"eclHBBrLWbJmque\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2013,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"A Practical Approach to API Design\",\n        \"author\": \"D. Keith Casey Jr, James Higginbotham\",\n        \"id\": \"jclqjdUdBrLWDDmqp\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2013,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Go Design Patterns\",\n        \"author\": \"Mario Castro Contreras\",\n        \"id\": \"eeRplqnKkshdmqeeE\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"The Joy Luck Club\",\n        \"author\": \"Amy Tan\",\n        \"id\": \"qqlHBBrLWbJmq_a\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1989,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Anxious People\",\n        \"author\": \"Fredrik Backman\",\n        \"id\": \"MpNoarLWbJTwe\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2019,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Continuous API Management: Making the Right Decisions in an Evolving Landscape\",\n        \"author\": \"Mehdi Medjaoui, Erik Wilde, Ronnie Mitra, Mike Amundsen\",\n        \"id\": \"ZxJksSDasdaO\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2018,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Learning GraphQL\",\n        \"author\": \"Eve Porcello, Alex Banks\",\n        \"id\": \"gqlHBBrLWbJmqgql\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2018,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Masala Lab: The Science of Indian Cooking\",\n        \"author\": \"Krish Ashok\",\n        \"id\": \"shrHcTrLWlJmquti\",\n        \"genre\": \"cooking\",\n        \"yearPublished\": 2020,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Refactoring\",\n        \"author\": \"Kent Beck, Martin Fowler\",\n        \"id\": \"aeSdkfhUSkdhHfo\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 1999,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Consolation of Philosophy\",\n        \"author\": \"Boethius\",\n        \"id\": \"cpopeLmqgixdD\",\n        \"genre\": \"philosophy\",\n        \"yearPublished\": 524,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"A Thousand Splendid Suns\",\n        \"author\": \"Khaled Hosseini\",\n        \"id\": \"qpBhlLWbJmqgg\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2007,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"The Wright Brothers\",\n        \"author\": \"David McCullough \",\n        \"id\": \"HjKaEeYYuiapA\",\n        \"genre\": \"history\",\n        \"yearPublished\": 2007,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"RESTful Web APIs: Services for a Changing World\",\n        \"author\": \"Leonard Richardson, Mike Amundsen, Sam Ruby\",\n        \"id\": \"apilLWbJmqgop\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2013,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Creativity, Inc.\",\n        \"author\": \"Ed Catmull\",\n        \"id\": \"plRHqwwEJmqgoT\",\n        \"genre\": \"business\",\n        \"yearPublished\": 2014,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Actualizar el libro",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Actualizacion exitosa\", function(){\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"/*pm.test(\"Los libros tienen un estado checkedOut\",function(){\r",
+							"    let response = pm.response.json()\r",
+							"    console.log(response)\r",
+							"    let array=[];\r",
+							"    let arrayNulls=[];\r",
+							"\r",
+							"    for(i=0;i<response.length;i++){\r",
+							"        if(response[i].checkedOut===true || response[i].checkedOut===false){\r",
+							"            array.push(response[i])\r",
+							"        }\r",
+							"        else{\r",
+							"            arrayNulls.push(response[i])\r",
+							"        }\r",
+							"        pm.expect(array[i].checkedOut).to.not.be.null //valida que el array tenga cosas\r",
+							"        //pm.expect.(pm.response.text()/??).to.include(pm.collectionVariables.get(\"checkedOut\"))\r",
+							"    }\r",
+							"    console.log(arrayNulls)\r",
+							"});*/\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"checkedOut\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/books/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Publicacion exitosa\",function(){\r",
+							"    let jsonData = pm.response.json()\r",
+							"    pm.expect(jsonData.message).to.eql(\"OK\")\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar el libro random",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"let numeroRandom = Math.round(Math.random()*40)\r",
+							"//console.log();\r",
+							"console.log('El autor del libro '+jsonData[numeroRandom].title+' es '+jsonData[numeroRandom].author);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener libros 80's",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"La respuesta tiene un cuerpo y status 200\", function () { \r",
+							"     pm.response.to.be.ok; \r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Libros entre años 80s\",function(){\r",
+							"    let response = pm.response.json()\r",
+							"    console.log(response)\r",
+							"    let array=[];\r",
+							"\r",
+							"    for(i=0;i<response.length;i++){\r",
+							"        if(response[i].yearPublished<=1990 /*&& response[i].yearPublished<=2000*/){\r",
+							"            array.push(response[i])\r",
+							"        }\r",
+							"    }\r",
+							"    pm.expect(array).to.not.be.equal(\"\")//valida que el array tenga cosas\r",
+							"    console.log(array)//para ver el array poblado por consola\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Agregar/Obtener libros exitoso\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200,201, 202]);",
+					"    pm.response.to.be.with.body;//tiene body",
+					"    pm.response.to.be.json;//es api rest xq respnse es json",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://postman-library-api.glitch.me",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "libroTitulo",
+			"value": ""
+		},
+		{
+			"key": "libroAutor",
+			"value": ""
+		},
+		{
+			"key": "libroGenero",
+			"value": ""
+		},
+		{
+			"key": "libroAnio",
+			"value": ""
+		}
+	]
+}
